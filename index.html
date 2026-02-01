@@ -36,23 +36,38 @@
 </head>
 <body>
 
-    <h1>Ti andrebbe di uscire a prendere un gelato/drink con me? 🍦</h1>
-    <p>(Prometto di fare il bravo... o quasi)</p>
+    <div id="main-container">
+        <h1>Facciamo qualcosa stasera??</h1>
+        <p>Scegli saggiamente...</p>
+        <div class="buttons">
+            <button id="yesBtn" onclick="showSuccess()">SÌ!</button>
+            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">NO</button>
+        </div>
+    </div>
 
-    <div class="buttons">
-        <button id="yesBtn" onclick="alert('Ottima scelta! Ti scrivo per i dettagli 😉')">SÌ!</button>
-        <button id="noBtn" onmouseover="moveButton()">NO</button>
+    <div id="success-screen">
+        <h1>EVVIVA! 😍</h1>
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZueXo1Z3pueXQ0eXpueXQ0eXpueXQ0eXpueXQ0eXpueXQ0ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HlHFRbmaZtBRhXG/giphy.gif" alt="Happy Dance">
+        </div>
+        <p>Sapevo che avresti fatto la scelta giusta! <br> Ci sentiamo tra poco per organizzarci 😉</p>
     </div>
 
     <script>
         function moveButton() {
             const btn = document.getElementById('noBtn');
-            // Calcola posizioni casuali per far "scappare" il tasto NO
+            // Calcola posizioni casuali restando visibile nella finestra
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight);
             
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
+        }
+
+        function showSuccess() {
+            // Nasconde la domanda e mostra la GIF
+            document.getElementById('main-container').style.display = 'none';
+            document.getElementById('success-screen').style.display = 'block';
         }
     </script>
 
