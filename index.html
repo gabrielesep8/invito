@@ -15,22 +15,49 @@
             background-color: #ffe6e6;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
+            overflow: hidden; /* Impedisce la comparsa di barre di scorrimento se il tasto scappa lontano */
         }
+
         h1 { color: #ff4d4d; }
-        .buttons { margin-top: 20px; position: relative; width: 100%; height: 100px; }
+
+        /* SCHERMATA SÌ (Nascosta all'inizio) */
+        #success-screen {
+            display: none; /* Fondamentale: tiene nascosta la GIF finché non clicca SÌ */
+        }
+
+        .buttons {
+            margin-top: 50px;
+            width: 100%;
+            height: 100px;
+            position: relative; /* Serve per contenere il tasto NO */
+        }
+
         button {
             padding: 15px 30px;
             font-size: 18px;
             cursor: pointer;
             border: none;
             border-radius: 10px;
-            transition: 0.3s;
+            transition: 0.2s;
+            font-weight: bold;
         }
-        #yesBtn { background-color: #4CAF50; color: white; }
+
+        #yesBtn {
+            background-color: #4CAF50;
+            color: white;
+            z-index: 100; /* Sta sempre sopra */
+        }
+
         #noBtn {
             background-color: #f44336;
             color: white;
-            position: absolute;
+            position: fixed; /* Lo rende libero di muoversi ovunque nello schermo */
+        }
+
+        img {
+            max-width: 300px;
+            border-radius: 20px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -47,16 +74,14 @@
 
     <div id="success-screen">
         <h1>EVVIVA! 😍</h1>
-        <div class="gif-container">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZueXo1Z3pueXQ0eXpueXQ0eXpueXQ0eXpueXQ0eXpueXQ0ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HlHFRbmaZtBRhXG/giphy.gif" alt="Happy Dance">
-        </div>
-        <p>Sapevo che avresti fatto la scelta giusta! <br> Ci sentiamo tra poco per organizzarci 😉</p>
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmlzNXQzN3k5ZmJodWF5OTdxM21sYTJyejc5Nmw2anhuN3d5cDdzeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/n7PjZc4B0DJHMfISNk/giphy.gif" alt="Happy Dance">
+        <p>Pizzetta a Film o uscita?</p>
     </div>
 
     <script>
         function moveButton() {
             const btn = document.getElementById('noBtn');
-            // Calcola posizioni casuali restando visibile nella finestra
+            // Calcola posizioni casuali sottraendo la dimensione del tasto per non farlo uscire dai bordi
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight);
             
