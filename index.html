@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invito Speciale</title>
     <style>
-        /* STILE GENERALE */
+        /* FORZA TUTTO IL TESTO IN BIANCO E GRASSETTO */
+        * {
+            color: white !important;
+            font-weight: bold !important;
+            box-sizing: border-box;
+        }
+
         body {
             display: flex;
             flex-direction: column;
@@ -13,31 +19,19 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #5aa2ed; /* Celeste tempera */
+            background-color: #b3e5ff; /* Celeste tempera */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
             overflow: hidden;
-            /* Ho aggiunto questo per far sì che tutto il testo base sia bianco */
-            color: white; 
         }
 
-        /* TITOLI PRINCIPALI (h1) */
-        h1 { 
-            color: white; /* Cambiato da #ff4d4d a white */
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2); /* Ombra leggera per leggere meglio sul celeste */
+        /* Ombra per far leggere meglio il bianco sul celeste */
+        h1, h3, p {
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
         }
 
-        /* SOTTOTITOLI (h3) E PARAGRAFI (p) */
-        h3, p { 
-            color: white; /* Testo in grassetto e normale ora bianco */
-            font-weight: bold; 
-        }
-
-        /* GESTIONE SCHERMATE */
         #success-screen, #final-screen { display: none; }
 
-        /* CONTENITORE TASTI */
         .buttons-wrapper {
             display: flex;
             justify-content: center;
@@ -48,26 +42,27 @@
             height: 150px;
         }
 
-        /* STILE BOTTONI (Rimane uguale perché il testo era già bianco per contrasto) */
         button {
             padding: 15px 30px;
             font-size: 18px;
             cursor: pointer;
             border: none;
             border-radius: 12px;
-            font-weight: bold;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            /* Forza il testo del bottone a essere bianco */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        #yesBtn { background-color: #4CAF50; color: white; position: relative; z-index: 10; }
-        #noBtn { background-color: #f44336; color: white; z-index: 1000; }
+        #yesBtn { background-color: #4CAF50 !important; position: relative; z-index: 10; }
+        #noBtn { background-color: #f44336 !important; z-index: 1000; }
 
-        /* BOTTONI SECONDA SCHERMATA */
-        .choice-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
-        .opt-btn { background-color: #4CAF50; color: white; }
+        .choice-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+        .opt-btn { background-color: #4CAF50 !important; }
 
-        img { max-width: 280px; border-radius: 20px; margin: 15px 0; }
+        img { max-width: 80%; border-radius: 20px; margin: 15px 0; height: auto; }
     </style>
 </head>
 <body>
@@ -85,10 +80,10 @@
         <h1>EVVIVA! 😍</h1>
         <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmlzNXQzN3k5ZmJodWF5OTdxM21sYTJyejc5Nmw2anhuN3d5cDdzeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/n7PjZc4B0DJHMfISNk/giphy.gif">
         <h3>Ti offro due scelte</h3>
-        <p>Questa volta per davvero 😂</p>
+        <p>(Questa volta per davvero 😂)</p>
         <div class="choice-buttons">
-            <button class="opt-btn" onclick="handleFinal('Pizza e Film a casa', 'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXhocDR4ZndxaDNvc2c3cDJzZTh1a28wZnduenNyOHU3cmQ5eWh0cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u4qWP6PppkBZTeEgFV/giphy.gif', 'OTTIMOOOOO! 🍕')">Pizza e film a casa</button>
-            <button class="opt-btn" onclick="handleFinal('Cena Fuori', 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXNwbHh4ZnVlaWp3bGEyMXF6OW9yeGdzanRzZWFraTh6N2V3bTVjMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jzyShQ7Anc8UujHsJN/giphy.gif', 'ANDATA! 🥂')">Cena fuori</button>
+            <button class="opt-btn" onclick="handleFinal('Pizza', 'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXhocDR4ZndxaDNvc2c3cDJzZTh1a28wZnduenNyOHU3cmQ5eWh0cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u4qWP6PppkBZTeEgFV/giphy.gif', 'OTTIMOOOOO! 🍕')">Pizza e film a casa</button>
+            <button class="opt-btn" onclick="handleFinal('Cena', 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXNwbHh4ZnVlaWp3bGEyMXF6OW9yeGdzanRzZWFraTh6N2V3bTVjMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jzyShQ7Anc8UujHsJN/giphy.gif', 'ANDATA! 🥂')">Cena fuori</button>
         </div>
     </div>
 
@@ -104,19 +99,14 @@
         function moveButton() {
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
-
             noBtn.style.position = 'fixed';
-
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
-
             yesSize += 12;
             yesBtn.style.fontSize = yesSize + 'px';
             yesBtn.style.padding = (yesSize * 0.8) + 'px ' + (yesSize * 1.5) + 'px';
-            
             if (noSize > 6) {
                 noSize -= 2;
                 noBtn.style.fontSize = noSize + 'px';
@@ -127,10 +117,9 @@
         function handleYes() {
             fetch("https://formspree.io/f/xaqbnzpg", {
                 method: "POST",
-                body: JSON.stringify({ Notifica: "Ha cliccato SÌ alla prima domanda!" }),
+                body: JSON.stringify({ Notifica: "SÌ iniziale" }),
                 headers: { 'Accept': 'application/json' }
             });
-
             document.getElementById('main-container').style.display = 'none';
             document.getElementById('success-screen').style.display = 'block';
         }
@@ -138,10 +127,9 @@
         function handleFinal(scelta, gifUrl, titolo) {
             fetch("https://formspree.io/f/xaqbnzpg", {
                 method: "POST",
-                body: JSON.stringify({ Scelta_Finale: scelta }),
+                body: JSON.stringify({ Scelta: scelta }),
                 headers: { 'Accept': 'application/json' }
             });
-
             document.getElementById('success-screen').style.display = 'none';
             document.getElementById('final-title').innerText = titolo;
             document.getElementById('final-gif').src = gifUrl;
