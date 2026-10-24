@@ -1,0 +1,384 @@
+```html
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invito Speciale ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #5aa2ed, #8bc8ff);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            text-align: center;
+            color: white;
+        }
+
+        .screen {
+            width: 100%;
+            max-width: 650px;
+            animation: appear 0.5s ease;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            margin-bottom: 12px;
+            text-shadow: 2px 3px 8px #0004;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+
+        .heart {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: heartbeat 1.2s infinite;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-top: 35px;
+            min-height: 100px;
+        }
+
+        button {
+            border: none;
+            border-radius: 16px;
+            padding: 16px 26px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 6px 15px #0003;
+            transition: transform 0.2s, box-shadow 0.2s;
+            touch-action: manipulation;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 20px #0004;
+        }
+
+        .yes {
+            background: linear-gradient(135deg, #35b86b, #218c4b);
+            position: relative;
+            z-index: 2;
+        }
+
+        .no {
+            background: linear-gradient(135deg, #ff6868, #e52d40);
+            position: relative;
+            z-index: 10;
+            white-space: nowrap;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.22);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            min-width: 190px;
+            max-width: 100%;
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .gif {
+            display: block;
+            width: auto;
+            max-width: min(85%, 380px);
+            max-height: 280px;
+            object-fit: contain;
+            margin: 22px auto;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px #0003;
+        }
+
+        .subtitle {
+            opacity: 0.95;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.18); }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 18px;
+            }
+
+            .buttons {
+                gap: 14px;
+                margin-top: 25px;
+            }
+
+            button {
+                padding: 14px 19px;
+                font-size: 16px;
+            }
+
+            .option {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SCHERMATA INIZIALE -->
+    <section id="start-screen" class="screen">
+        <div class="heart">💙</div>
+        <h1>Usciamo stasera?</h1>
+        <p class="subtitle">Ho organizzato una piccola sorpresa per te... 🥰</p>
+
+        <div class="buttons">
+            <button class="yes" onclick="choose('usciamo')">
+                SÌ, USCIAMO! ❤️
+            </button>
+
+            <button id="noBtn" class="no"
+                    onmouseover="moveButton()"
+                    onfocus="moveButton()"
+                    ontouchstart="moveButton(event)"
+                    onclick="escapeButton(event)">
+                NON CI VEDIAMO 🙄
+            </button>
+        </div>
+    </section>
+
+    <!-- SECONDA SCHERMATA -->
+    <section id="plan-screen" class="screen hidden">
+        <div class="heart">😍</div>
+        <h1>Yeeee! ❤️</h1>
+        <p>Come organizziamo la serata?</p>
+
+        <div class="buttons">
+            <button class="option" onclick="choose('mangiamo')">
+                🍕 Mangiamo insieme
+            </button>
+
+            <button class="option" onclick="choose('dopocena')">
+                🌙 Dopo cena
+            </button>
+        </div>
+    </section>
+
+    <!-- SCELTA DOPO CENA -->
+    <section id="after-screen" class="screen hidden">
+        <div class="heart">🌙</div>
+        <h1>Allora, che facciamo?</h1>
+        <p>Ho due idee... scegli tu! 💕</p>
+
+        <div class="buttons">
+            <button class="option" onclick="finish('piazza')">
+                ✨ Usciamo in piazza
+            </button>
+
+            <button class="option" onclick="finish('coccole')">
+                🏡 Casa e coccole
+            </button>
+        </div>
+    </section>
+
+    <!-- SCELTA CENA -->
+    <section id="food-screen" class="screen hidden">
+        <div class="heart">🍽️</div>
+        <h1>Che si mangia?</h1>
+        <p>Questa volta scegli tu! 😋</p>
+
+        <div class="buttons">
+            <button class="option" onclick="finish('pizza')">
+                🍕 Pizza
+            </button>
+
+            <button class="option" onclick="finish('ristorante')">
+                🥂 Ristorante a tua scelta
+            </button>
+        </div>
+    </section>
+
+    <!-- SCHERMATA FINALE -->
+    <section id="final-screen" class="screen hidden">
+        <div class="heart">❤️</div>
+        <h1 id="final-title">Perfetto!</h1>
+        <img id="final-gif" class="gif" src="" alt="GIF della serata">
+        <p id="final-message"></p>
+    </section>
+
+    <script>
+        const FORMSPREE_URL = "https://formspree.io/f/xaqbnzpg";
+
+        let yesSize = 18;
+        let noSize = 18;
+        let noPadding = 16;
+        let moveCount = 0;
+
+        const messages = {
+            usciamo: "La serata insieme è ufficialmente prenotata! ❤️",
+            mangiamo: "Perfetto! Ora non resta che decidere cosa mangiare 😋",
+            dopocena: "Una serata insieme è sempre una buona idea 💕",
+            piazza: "Preparati, si esce! ✨",
+            coccole: "Divano, coccole e tante attenzioni... 🥰",
+            pizza: "OTTIMOOOOO! Pizza e una bella serata insieme 🍕",
+            ristorante: "Affare fatto! Stasera ti porto dove vuoi 🥂"
+        };
+
+        const endings = {
+            piazza: {
+                title: "Si va in piazza! ✨",
+                gif: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmlzNXQzN3k5ZmJodWF5OTdxM21sYTJyejc5Nmw2anhuN3d5cDdzeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/n7PjZc4B0DJHMfISNk/giphy.gif"
+            },
+            coccole: {
+                title: "Casa e coccole! 🥰",
+                gif: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmlzNXQzN3k5ZmJodWF5OTdxM21sYTJyejc5Nmw2anhuN3d5cDdzeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/n7PjZc4B0DJHMfISNk/giphy.gif"
+            },
+            pizza: {
+                title: "OTTIMOOOOO! 🍕",
+                gif: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXhocDR4ZndxaDNvc2c3cDJzZTh1a28wZnduenNyOHU3cmQ5eWh0cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u4qWP6PppkBZTeEgFV/giphy.gif"
+            },
+            ristorante: {
+                title: "ANDATA! 🥂",
+                gif: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXNwbHh4ZnVlaWp3bGEyMXF6OW9yeGdzanRzZWFraTh6N2V3bTVjMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jzyShQ7Anc8UujHsJN/giphy.gif"
+            }
+        };
+
+        function notify(data) {
+            // La pagina continua a funzionare anche se la notifica fallisce.
+            fetch(FORMSPREE_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    ...data,
+                    Data: new Date().toLocaleString("it-IT")
+                })
+            }).catch(error => console.error("Notifica non inviata:", error));
+        }
+
+        function showScreen(id) {
+            document.querySelectorAll(".screen").forEach(screen => {
+                screen.classList.add("hidden");
+            });
+
+            document.getElementById(id).classList.remove("hidden");
+        }
+
+        function choose(choice) {
+            notify({ Scelta: choice });
+
+            if (choice === "usciamo") {
+                showScreen("plan-screen");
+            } else if (choice === "mangiamo") {
+                showScreen("food-screen");
+            } else if (choice === "dopocena") {
+                showScreen("after-screen");
+            }
+        }
+
+        function finish(choice) {
+            notify({ SceltaFinale: choice });
+
+            const ending = endings[choice];
+
+            document.getElementById("final-title").textContent = ending.title;
+            document.getElementById("final-gif").src = ending.gif;
+            document.getElementById("final-message").textContent = messages[choice];
+
+            showScreen("final-screen");
+        }
+
+        function moveButton(event) {
+            if (event) {
+                event.preventDefault();
+            }
+
+            const noBtn = document.getElementById("noBtn");
+            const yesBtn = document.querySelector(".yes");
+
+            // Sposta il pulsante in una posizione casuale sullo schermo.
+            noBtn.style.position = "fixed";
+            noBtn.style.margin = "0";
+            noBtn.style.left = "0";
+            noBtn.style.top = "0";
+
+            const maxX = Math.max(0, window.innerWidth - noBtn.offsetWidth - 10);
+            const maxY = Math.max(0, window.innerHeight - noBtn.offsetHeight - 10);
+
+            noBtn.style.left = (10 + Math.random() * Math.max(0, maxX - 10)) + "px";
+            noBtn.style.top = (10 + Math.random() * Math.max(0, maxY - 10)) + "px";
+
+            // A ogni tentativo, il NO diventa più piccolo.
+            moveCount++;
+            noSize = Math.max(7, noSize - 1.5);
+            noPadding = Math.max(2, noPadding - 1.2);
+
+            noBtn.style.fontSize = noSize + "px";
+            noBtn.style.padding = noPadding + "px";
+            noBtn.style.opacity = Math.max(0.35, 1 - moveCount * 0.04);
+
+            // E il SÌ diventa sempre più invitante.
+            yesSize = Math.min(46, yesSize + 2);
+            yesBtn.style.fontSize = yesSize + "px";
+            yesBtn.style.padding = Math.min(35, yesSize * 0.8) + "px " +
+                                  Math.min(55, yesSize * 1.2) + "px";
+        }
+
+        function escapeButton(event) {
+            event.preventDefault();
+            moveButton(event);
+        }
+    </script>
+</body>
+</html>
+```
