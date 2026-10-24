@@ -178,7 +178,7 @@
     <section id="start-screen" class="screen">
         <div class="heart">💙</div>
         <h1>Usciamo stasera?</h1>
-        <p class="subtitle">Ho organizzato una piccola sorpresa per te... 🥰</p>
+        <p class="subtitle">Ho organizzato un piccolo gioco...fossi in te non proverei a scegliere di non vederci🥰</p>
 
         <div class="buttons">
             <button class="yes" onclick="choose('usciamo')">
@@ -198,8 +198,8 @@
     <!-- SECONDA SCHERMATA -->
     <section id="plan-screen" class="screen hidden">
         <div class="heart">😍</div>
-        <h1>Yeeee! ❤️</h1>
-        <p>Come organizziamo la serata?</p>
+        <h1>Ottima scelta</h1>
+        <p>Che cose preferisce fare Puffetta?❤️</p>
 
         <div class="buttons">
             <button class="option" onclick="choose('mangiamo')">
@@ -207,7 +207,7 @@
             </button>
 
             <button class="option" onclick="choose('dopocena')">
-                🌙 Dopo cena
+                🌙 Ci vediamo dopo cena
             </button>
         </div>
     </section>
@@ -215,12 +215,12 @@
     <!-- SCELTA DOPO CENA -->
     <section id="after-screen" class="screen hidden">
         <div class="heart">🌙</div>
-        <h1>Allora, che facciamo?</h1>
-        <p>Ho due idee... scegli tu! 💕</p>
+        <h1>Va bene, che facciamo?</h1>
+        <p>Ho due idee...scegli tu (questa volta per davvero)! 😂💕</p>
 
         <div class="buttons">
             <button class="option" onclick="finish('piazza')">
-                ✨ Usciamo in piazza
+                ✨ Usciamo in piazza e poi torniamo a casa...😏
             </button>
 
             <button class="option" onclick="finish('coccole')">
@@ -232,16 +232,32 @@
     <!-- SCELTA CENA -->
     <section id="food-screen" class="screen hidden">
         <div class="heart">🍽️</div>
-        <h1>Che si mangia?</h1>
-        <p>Questa volta scegli tu! 😋</p>
+        <h1>Cosa preferisce cara?</h1>
 
         <div class="buttons">
-            <button class="option" onclick="finish('pizza')">
+            <button class="option" onclick="choose('pizza')">
                 🍕 Pizza
             </button>
 
-            <button class="option" onclick="finish('ristorante')">
+            <button class="option" onclick="choose('ristorante')">
                 🥂 Ristorante a tua scelta
+            </button>
+        </div>
+    </section>
+
+    <!-- SCELTA DOPO CENA -->
+    <section id="after-food-screen" class="screen hidden">
+        <div class="heart">🌙</div>
+        <h1>Ottimo, che facciamo dopo cena?</h1>
+        <p>Ho due idee...scegli tu! 😂💕</p>
+
+        <div class="buttons">
+            <button class="option" onclick="finish('piazza')">
+                ✨ Usciamo in piazza e poi torniamo a casa...😏
+            </button>
+
+            <button class="option" onclick="finish('coccole')">
+                🏡 Casa e coccole
             </button>
         </div>
     </section>
@@ -323,6 +339,10 @@
                 showScreen("food-screen");
             } else if (choice === "dopocena") {
                 showScreen("after-screen");
+            } else if (choice === "pizza") {
+                showScreen("after-food-screen");
+            } else if (choice === "ristorante") {
+                showScreen("after-food-screen");
             }
         }
 
